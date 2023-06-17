@@ -6,6 +6,7 @@ import com.banshare.api.model.Customers;
 
 public interface CustomerDao {
 	int save(Customers customer);
+	int saveAndGetId(Customers customer);
 
 	int update(Customers customer);
 

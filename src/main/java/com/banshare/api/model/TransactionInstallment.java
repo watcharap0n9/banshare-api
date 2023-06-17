@@ -1,14 +1,20 @@
 package com.banshare.api.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TransactionInstallment {
 	private int installmentId;
+	private int customerId;
+	private String customerName;
 	private int transactionId; // รหัสธุรกรรม
 	private int installmentNo; // ลำดับ
-	private Date dueDate; // วันที่ครบกำหนดชำระ
+	private String dueDate; // วันที่ครบกำหนดชำระ
 	private BigDecimal installmentAmt; // ผ่อนเดือนละ
+
+	@JsonProperty("isPrepaid")
+	private boolean isPrepaid;
 	// ล่วงหน้า
 	// รอจ่าย
 
@@ -18,6 +24,22 @@ public class TransactionInstallment {
 
 	public void setInstallmentId(int installmentId) {
 		this.installmentId = installmentId;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 	public int getTransactionId() {
@@ -36,11 +58,15 @@ public class TransactionInstallment {
 		this.installmentNo = installmentNo;
 	}
 
-	public Date getDueDate() {
+	public String getDueDate() {
+		if (dueDate != null) {
+			String date[] = dueDate.split("-");
+			return date[2] + "/" + date[1] + "/" + date[0];
+		}
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -52,11 +78,12 @@ public class TransactionInstallment {
 		this.installmentAmt = installmentAmt;
 	}
 
-	@Override
-	public String toString() {
-		return "TransactionInstallment [installmentId=" + installmentId + ", transactionId=" + transactionId
-				+ ", installmentNo=" + installmentNo + ", dueDate=" + dueDate + ", installmentAmt=" + installmentAmt
-				+ "]";
+	public boolean getIsPrepaid() {
+		return isPrepaid;
+	}
+
+	public void setIsPrepaid(boolean isPrepaid) {
+		this.isPrepaid = isPrepaid;
 	}
 
 }

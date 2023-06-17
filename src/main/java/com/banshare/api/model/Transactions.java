@@ -3,17 +3,26 @@ package com.banshare.api.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Transactions {
 	private int transactionId; // รหัสธุรกรรม
 	private int transactionType; // ประเภทธุรกรรม
 	private int customerId; // รหัสลูกค้า
+	private String customerName; // รายละเอียด
 	private String description; // รายละเอียด
 	private int interestType; // รายเดือน/รายปี
 	private BigDecimal interestRate; // อัตราดอกเบี้ย
 	private int paymentType; // รายวัน/รายเดือน
 	private int paymentDate; // รายเดือนทุกวันที่ 
+	private String paymentDateSpecific; // แบบระบุวันที่
+
+	@JsonProperty("daily")
 	private int daily; // รายวัน
+	
+	@JsonProperty("isClosed")
 	private boolean isClosed; // ปิดแล้ว
+	
 	private String remark; // หมายเหตุ
 	private BigDecimal principle; // เงินต้น
 	private BigDecimal total; // ยอดรวม
@@ -48,6 +57,14 @@ public class Transactions {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 	public String getDescription() {
@@ -90,6 +107,14 @@ public class Transactions {
 		this.paymentDate = paymentDate;
 	}
 
+	public String getPaymentDateSpecific() {
+		return paymentDateSpecific;
+	}
+
+	public void setPaymentDateSpecific(String paymentDateSpecific) {
+		this.paymentDateSpecific = paymentDateSpecific;
+	}
+
 	public int getDaily() {
 		return daily;
 	}
@@ -98,11 +123,11 @@ public class Transactions {
 		this.daily = daily;
 	}
 
-	public boolean isClosed() {
+	public boolean getIsClosed() {
 		return isClosed;
 	}
 
-	public void setClosed(boolean isClosed) {
+	public void setIsClosed(boolean isClosed) {
 		this.isClosed = isClosed;
 	}
 

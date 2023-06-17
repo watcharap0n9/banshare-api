@@ -3,6 +3,7 @@ package com.banshare.api.model;
 public class InterestType {
 	private int interestTypeId;
 	private String interestTypeDesc;
+	private String color;
 	private int seqNo;
 
 	public int getInterestTypeId() {
@@ -19,6 +20,14 @@ public class InterestType {
 
 	public void setInterestTypeDesc(String interestTypeDesc) {
 		this.interestTypeDesc = interestTypeDesc;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public int getSeqNo() {

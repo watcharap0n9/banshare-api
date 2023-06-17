@@ -1,5 +1,7 @@
 package com.banshare.api.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,12 +13,14 @@ import com.banshare.api.model.Users;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+	private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public int save(Users user) {
+		logger.info("Create user : " + user.getUsername() + " with password : ********");
 		return jdbcTemplate.update("INSERT INTO USERS (USERNAME, PASSWORD, ROLE) VALUES(?,?,?)",
 		        new Object[] { user.getUsername(), user.getPassword(), user.getRole() });
 	}

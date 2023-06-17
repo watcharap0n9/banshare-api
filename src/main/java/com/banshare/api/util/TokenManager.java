@@ -20,7 +20,7 @@ public class TokenManager implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 886286271335451028L;
-	public static final long TOKEN_VALIDITY = 7 * 24 * 60 * 60; // 12 * 60 * 60 = 12 hrs.
+	public static final long TOKEN_VALIDITY = 12 * 60 * 60; // 12 * 60 * 60 = 12 hrs.
 
 	@Value("${jwt.secret}")
 	private String jwtSecret;
@@ -34,10 +34,14 @@ public class TokenManager implements Serializable {
 	}
 
 	public Boolean validateJwtToken(String token, UserDetails userDetails) {
-		String username = getUsernameFromToken(token);
-		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-		Boolean isTokenExpired = claims.getExpiration().before(new Date());
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired);
+		try {
+			String username = getUsernameFromToken(token);
+			Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+			Boolean isTokenExpired = claims.getExpiration().before(new Date(System.currentTimeMillis()));
+			return (username.equals(userDetails.getUsername()) && !isTokenExpired);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public String getUsernameFromToken(String token) {

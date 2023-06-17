@@ -3,6 +3,7 @@ package com.banshare.api.model;
 public class PaymentType {
 	private int paymentTypeId;
 	private String paymentTypeDesc;
+	private String color;
 	private int seqNo;
 
 	public int getPaymentTypeId() {
@@ -19,6 +20,14 @@ public class PaymentType {
 
 	public void setPaymentTypeDesc(String paymentTypeDesc) {
 		this.paymentTypeDesc = paymentTypeDesc;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public int getSeqNo() {

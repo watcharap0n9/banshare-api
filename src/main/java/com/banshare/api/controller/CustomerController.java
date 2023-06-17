@@ -3,6 +3,8 @@ package com.banshare.api.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,7 @@ import com.banshare.api.payload.request.CustomerRequest;
 @RequestMapping("/api")
 @CrossOrigin
 public class CustomerController {
+	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
 	CustomerDao customerDao;
@@ -33,6 +36,7 @@ public class CustomerController {
 	@PostMapping("/customers")
 	public ResponseEntity<String> createCustomer(@RequestBody CustomerRequest customer) {
 		try {
+			logger.info("Create customer with name : " + customer.getName());
 			customerDao.save(new Customers(customer.getName(), customer.getDescription()));
 			return new ResponseEntity<>("Customer was created successfully.", HttpStatus.CREATED);
 		} catch (DuplicateKeyException dke) {
@@ -45,6 +49,7 @@ public class CustomerController {
 
 	@GetMapping("/customers/{id}")
 	public ResponseEntity<Customers> getCustomerByCustomerId(@PathVariable("id") int customerId) {
+		logger.info("Get customer with id : " + customerId);
 		Customers customer = customerDao.findByCustomerId(customerId);
 
 		if (customer != null) {
@@ -57,6 +62,7 @@ public class CustomerController {
 	@PutMapping("/customers/{id}")
 	public ResponseEntity<String> updateCustomer(@PathVariable("id") int customerId,
 			@RequestBody CustomerRequest customer) {
+		logger.info("Update customer with id : " + customerId);
 		Customers _customer = customerDao.findByCustomerId(customerId);
 
 		if (_customer != null) {
@@ -73,6 +79,7 @@ public class CustomerController {
 
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable("id") int customerId) {
+		logger.info("Delete customer with id : " + customerId);
 		try {
 			int result = customerDao.deleteByCustomerId(customerId);
 			if (result == 0) {
@@ -86,6 +93,7 @@ public class CustomerController {
 
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customers>> getAllCustomers(@RequestParam(required = false, name = "name") String name) {
+		logger.info("Get AllCustomers");
 		try {
 			List<Customers> customers = new ArrayList<Customers>();
 

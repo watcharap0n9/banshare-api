@@ -1,15 +1,19 @@
 package com.banshare.api.payload.request;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionRequest {
 	private int transactionType; // ประเภทธุรกรรม
 	private int customerId; // รหัสลูกค้า
+	private List<String> customerName = new ArrayList<>(); // รหัสลูกค้า
 	private String description; // รายละเอียด
 	private int interestType; // 1=รายเดือน/2=รายปี
 	private BigDecimal interestRate; // อัตราดอกเบี้ย
-	private int paymentType; // 1=รายวัน/2=รายเดือน
+	private int paymentType; // 1=รายวัน/2=รายเดือน/3=ระบุ
 	private int paymentDate; // รายเดือนทุกวันที่
+	private String paymentDateSpecific; // แบบระบุวันที่
 	private int daily; // รายวัน
 	private String remark; // หมายเหตุ
 	private BigDecimal principle; // เงินต้น
@@ -19,7 +23,9 @@ public class TransactionRequest {
 	private BigDecimal remaining; // ยอดคงเหลือ
 	private BigDecimal installmentAmt; // ผ่อนเดือนละ
 	private BigDecimal income; // รายได้
+	private String createDate; // วันที่เริ่มผ่อน 09/03/2023 
 	private String firstDueDate; // วันที่เริ่มผ่อน 09/03/2023 
+	private List<InstallmentRequest> installment = new ArrayList<>();
 
 	public int getTransactionType() {
 		return transactionType;
@@ -35,6 +41,14 @@ public class TransactionRequest {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public List<String> getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(List<String> customerName) {
+		this.customerName = customerName;
 	}
 
 	public String getDescription() {
@@ -75,6 +89,14 @@ public class TransactionRequest {
 
 	public void setPaymentDate(int paymentDate) {
 		this.paymentDate = paymentDate;
+	}
+
+	public String getPaymentDateSpecific() {
+		return paymentDateSpecific;
+	}
+
+	public void setPaymentDateSpecific(String paymentDateSpecific) {
+		this.paymentDateSpecific = paymentDateSpecific;
 	}
 
 	public int getDaily() {
@@ -149,6 +171,14 @@ public class TransactionRequest {
 		this.income = income;
 	}
 
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
 	public String getFirstDueDate() {
 		return firstDueDate;
 	}
@@ -157,14 +187,23 @@ public class TransactionRequest {
 		this.firstDueDate = firstDueDate;
 	}
 
+	public List<InstallmentRequest> getInstallment() {
+		return installment;
+	}
+
+	public void setInstallment(List<InstallmentRequest> installment) {
+		this.installment = installment;
+	}
+
 	@Override
 	public String toString() {
 		return "TransactionRequest [transactionType=" + transactionType + ", customerId=" + customerId
-				+ ", description=" + description + ", interestType=" + interestType + ", interestRate=" + interestRate
-				+ ", paymentType=" + paymentType + ", paymentDate=" + paymentDate + ", daily=" + daily + ", remark="
-				+ remark + ", principle=" + principle + ", total=" + total + ", contractPeriod=" + contractPeriod
+				+ ", customerName=" + customerName + ", description=" + description + ", interestType=" + interestType
+				+ ", interestRate=" + interestRate + ", paymentType=" + paymentType + ", paymentDate=" + paymentDate
+				+ ", paymentDateSpecific=" + paymentDateSpecific + ", daily=" + daily + ", remark=" + remark
+				+ ", principle=" + principle + ", total=" + total + ", contractPeriod=" + contractPeriod
 				+ ", firstDownAmt=" + firstDownAmt + ", remaining=" + remaining + ", installmentAmt=" + installmentAmt
-				+ ", income=" + income + ", firstDueDate=" + firstDueDate + "]";
+				+ ", income=" + income + ", firstDueDate=" + firstDueDate + ", installment=" + installment + "]";
 	}
 
 }
