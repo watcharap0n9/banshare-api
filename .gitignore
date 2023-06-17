@@ -184,6 +184,7 @@ build/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 ### Some additional ignores (sort later)
 *.DS_Store
 *.sw?
@@ -204,3 +205,7 @@ README.html
 *.iml
 .idea
 .exercism
+=======
+### Mac ###
+.DS_Store
+>>>>>>> f3638083a2e1d84c25dcc44ce64f08d444519d0b
