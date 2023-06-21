@@ -60,7 +60,7 @@
         <appender-ref ref="Console" />
     </root>
      
-    <logger name="com.banshare" level="trace" additivity="false">
+    <logger name="com.banshare" level="INFO" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
         <appender-ref ref="SevereRollingFile" />

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class ApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiApplication.class, args);
+		SpringApplication.run(ApiApplication.class, args);//https://139.180.217.76 //https://mgold.ddns.net
 	}
 
 }
