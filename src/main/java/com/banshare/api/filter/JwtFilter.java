@@ -1,6 +1,7 @@
 package com.banshare.api.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -54,17 +55,21 @@ public class JwtFilter extends OncePerRequestFilter {
 			}
 		}
 		
-		if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			String blacklistToken = CacheBlacklistToken.getInstance().get(username);
-			if (tokenManager.validateJwtToken(token, userDetails) && !token.equals(blacklistToken)) {
-				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities());
-				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-			} else {
-				logger.error("JWT token is invalid");
+		try {
+			if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				String blacklistToken = CacheBlacklistToken.getInstance().get(username);
+				if (tokenManager.validateJwtToken(token, userDetails) && !token.equals(blacklistToken)) {
+					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+				} else {
+					logger.error("JWT token is invalid");
+				}
 			}
+		} catch (Exception e) {
+			response.sendError(401);
 		}
 		
 		filterChain.doFilter(request, response);

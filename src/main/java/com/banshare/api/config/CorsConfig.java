@@ -12,11 +12,11 @@ public class CorsConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-					.allowedHeaders("*")
+					.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
+					.allowedHeaders("X-Requested-With, X-FORWARDED-FOR, Content-Type, Authorization, Origin, Accept, " + 
+							"Access-Control-Request-Method, Access-Control-Request-Headers, User-Agent")
 					.allowedOriginPatterns("*")
 					.allowCredentials(true);
-				registry.addMapping("/**").allowedOrigins("*");
 
 			}
 		};

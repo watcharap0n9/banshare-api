@@ -26,9 +26,9 @@ public class CORSFilter implements Filter {
 		logger.debug("Filtering on...........................................................");
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		response.setHeader("Access-Control-Allow-Origin", "https://mgold.ddns.net"); // Access-Control-Allow-Origin:
+		response.setHeader("Access-Control-Allow-Origin", "*"); // https://mgold.ddns.net
 		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, HEAD, OPTIONS");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, HEAD, OPTIONS");
 		response.setHeader("Access-Control-Max-Age", "3600");
 		response.setHeader("Access-Control-Allow-Headers",
 				"X-Requested-With, X-FORWARDED-FOR, Content-Type, Authorization, Origin, Accept, "

@@ -174,6 +174,15 @@ public class TransactionDaoImpl implements TransactionDao {
 		int result = namedParameterJdbcTemplate.update(sql, paramMap);
 		logger.info("prepaid transaction result : " + result);
 		
+		logger.info("close transaction id : " + transactionId);
+		MapSqlParameterSource paramMapClose = new MapSqlParameterSource();
+		paramMapClose.addValue("TRANSACTION_ID", transactionId);
+		String sqlClose = "UPDATE TRANSACTIONS SET IS_CLOSED = TRUE WHERE TRANSACTION_ID = :TRANSACTION_ID ";
+		logger.debug("sql : " + sql);
+		logger.debug("parameter : " + paramMap);
+		int resultClose = namedParameterJdbcTemplate.update(sqlClose, paramMapClose);
+		logger.info("close transaction result : " + resultClose);
+		
 		return result;
 	}
 

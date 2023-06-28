@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.banshare</groupId>
 	<artifactId>api</artifactId>
-	<version>0.0.13</version>
+	<version>0.0.19</version>
 	<name>api</name>
-	<description>Backend project for BanShare</description>
+	<description>API project for BanShare</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
