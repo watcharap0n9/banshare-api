@@ -16,6 +16,7 @@ public class TransactionRequest {
 	private String paymentDateSpecific; // แบบระบุวันที่
 	private int daily; // รายวัน
 	private String remark; // หมายเหตุ
+	private String deposit; // ฝาก
 	private BigDecimal principle; // เงินต้น
 	private BigDecimal total; // ยอดรวม
 	private int contractPeriod; // จำนวนงวด
@@ -113,6 +114,14 @@ public class TransactionRequest {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(String deposit) {
+		this.deposit = deposit;
 	}
 
 	public BigDecimal getPrinciple() {

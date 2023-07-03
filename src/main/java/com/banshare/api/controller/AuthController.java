@@ -56,12 +56,16 @@ public class AuthController {
 
 	@PostMapping("/logout")
 	public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) throws Exception {
-		token = token.replaceAll("Bearer ", "");
-		String username = tokenManager.getUsernameFromToken(token);
-		logger.info("/logout with username : " + username);
-		CacheBlacklistToken.getInstance().set(username, token);
-		SecurityContextHolder.clearContext();
-
+		try {
+			token = token.replaceAll("Bearer ", "");
+			String username = tokenManager.getUsernameFromToken(token);
+			logger.info("/logout with username : " + username);
+			CacheBlacklistToken.getInstance().set(username, token);
+			SecurityContextHolder.clearContext();
+		} catch (Exception e) {
+			logger.error("Logout exception:",e);
+		}
+		
 		return ResponseEntity.ok("You have successfully been logged out");
 	}
 }

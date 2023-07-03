@@ -17,7 +17,6 @@ public class CorsConfig {
 							"Access-Control-Request-Method, Access-Control-Request-Headers, User-Agent")
 					.allowedOriginPatterns("*")
 					.allowCredentials(true);
-
 			}
 		};
 	}

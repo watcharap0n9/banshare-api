@@ -77,6 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
 		String paymentDateSpecific = transaction.getPaymentDateSpecific();
 		int daily = transaction.getDaily();
 		String remark = transaction.getRemark();
+		String deposit = transaction.getDeposit();
 		BigDecimal principle = transaction.getPrinciple();
 		BigDecimal total = transaction.getTotal();
 		BigDecimal firstDownAmt = transaction.getFirstDownAmt();
@@ -110,6 +111,7 @@ public class TransactionServiceImpl implements TransactionService {
 			transactions.setPaymentDate(paymentDate);
 			transactions.setDaily(daily);
 			transactions.setRemark(remark);
+			transactions.setDeposit(deposit);
 			transactions.setPrinciple(principle);
 			transactions.setTotal(total);
 			transactions.setFirstDownAmt(firstDownAmt);
@@ -325,6 +327,11 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public List<Transactions> findTransactionByDateAndCustomerId(int customerId, String startDate, String endDate) {
 		return transactionDao.findTransactionByDateAndCustomerId(customerId, startDate, endDate);
+	}
+
+	@Override
+	public int depositTransactionByTransactionId(int transactionId, String deposit) {
+		return transactionDao.deposit(transactionId, deposit);
 	}
 
 }

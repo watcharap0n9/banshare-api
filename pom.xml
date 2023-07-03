@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.banshare</groupId>
 	<artifactId>api</artifactId>
-	<version>0.0.19</version>
+	<version>0.0.21</version>
 	<name>api</name>
 	<description>API project for BanShare</description>
 	<properties>

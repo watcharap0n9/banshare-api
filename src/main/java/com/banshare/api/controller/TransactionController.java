@@ -123,6 +123,23 @@ public class TransactionController {
 		return new ResponseEntity<>(new GenericResponse(), HttpStatus.OK);
 	}
 
+	@PostMapping("/transactions/deposit/{transactionId}")
+	public ResponseEntity<GenericResponse> depositTransaction(@PathVariable("transactionId") int transactionId, @RequestBody TransactionRequest transaction) {
+		logger.info("Deposit transaction id : " + transactionId);
+		logger.info("Request param : " + transaction);
+		if (StringUtils.isEmpty(transaction.getDeposit())) {
+			return new ResponseEntity<>(new GenericResponse(400, "required parameter deposit."), HttpStatus.BAD_REQUEST);
+		}
+		
+		int result = transactionService.depositTransactionByTransactionId(transactionId, transaction.getDeposit());
+		logger.info("Result : " + result);
+
+		if (result == 0) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_MODIFIED);
+		}
+		return new ResponseEntity<>(new GenericResponse(), HttpStatus.OK);
+	}
+
 	@PostMapping("/transactions/prepaid/{transactionId}")
 	public ResponseEntity<GenericResponse> prepaidTransaction(@PathVariable("transactionId") int transactionId, @RequestBody Map<String, Object> param) {
 		@SuppressWarnings("unchecked")

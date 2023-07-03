@@ -30,4 +30,13 @@ public class ErrorMessage {
 	public String getDescription() {
 		return description;
 	}
+
+	@Override
+	public String toString() {
+		return "ErrorMessage [statusCode=" + statusCode + ", "
+				+ (timestamp != null ? "timestamp=" + timestamp + ", " : "")
+				+ (message != null ? "message=" + message + ", " : "")
+				+ (description != null ? "description=" + description : "") + "]";
+	}
+
 }

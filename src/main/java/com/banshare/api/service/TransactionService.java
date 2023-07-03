@@ -19,6 +19,7 @@ public interface TransactionService {
 	int deleteTransactionByTransactionId(int transactionId);
 	int closeTransactionByTransactionId(int transactionId);
 	int openTransactionByTransactionId(int transactionId);
+	int depositTransactionByTransactionId(int transactionId, String deposit);
 	int prepaidTransaction(int transactionId, int installmentId);
 	int prepaidByInstallmentId(int transactionId, List<Integer> installmentId);
 	List<Transactions> findAllTransaction();

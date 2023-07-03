@@ -11,6 +11,7 @@ public interface TransactionDao {
 	int delete(int transactionId);
 	int close(int transactionId);
 	int open(int transactionId);
+	int deposit(int transactionId, String deposit);
 	int prepaid(int transactionId, int installmentId);
 	Transactions findByTransactionId(int transactionId);
 	List<TransactionDate> findTransactionByDate(String startDate, String endDate);

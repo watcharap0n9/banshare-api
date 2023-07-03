@@ -22,7 +22,8 @@ public class Transactions {
 	
 	@JsonProperty("isClosed")
 	private boolean isClosed; // ปิดแล้ว
-	
+
+	private String deposit; // ฝาก
 	private String remark; // หมายเหตุ
 	private BigDecimal principle; // เงินต้น
 	private BigDecimal total; // ยอดรวม
@@ -137,6 +138,14 @@ public class Transactions {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getDeposit() {
+		return deposit;
+	}
+
+	public void setDeposit(String deposit) {
+		this.deposit = deposit;
 	}
 
 	public BigDecimal getPrinciple() {

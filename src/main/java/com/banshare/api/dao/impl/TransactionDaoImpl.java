@@ -29,10 +29,10 @@ public class TransactionDaoImpl implements TransactionDao {
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private final String SQL_INSERT = "INSERT INTO TRANSACTIONS (TRANSACTION_TYPE, CUSTOMER_ID, DESCRIPTION, INTEREST_TYPE, INTEREST_RATE, PAYMENT_TYPE, PAYMENT_DATE, "
-									+ "DAILY, IS_CLOSED, REMARK, PRINCIPLE, TOTAL, CONTRACT_PERIOD, FIRST_DOWN_AMT, REMAINING, INSTALLMENT_AMT, INCOME, "
+									+ "DAILY, IS_CLOSED, REMARK, DEPOSIT, PRINCIPLE, TOTAL, CONTRACT_PERIOD, FIRST_DOWN_AMT, REMAINING, INSTALLMENT_AMT, INCOME, "
 									+ "CONTRACT_FIRST_DUE_DATE, CONTRACT_END_DATE, CREATE_DATE, PAYMENT_DATE_SPECIFIC) "
 									+ "VALUES (:TRANSACTION_TYPE, :CUSTOMER_ID, :DESCRIPTION, :INTEREST_TYPE, :INTEREST_RATE, :PAYMENT_TYPE, :PAYMENT_DATE, "
-									+ ":DAILY, :IS_CLOSED, :REMARK, :PRINCIPLE, :TOTAL, :CONTRACT_PERIOD, :FIRST_DOWN_AMT, :REMAINING, :INSTALLMENT_AMT, :INCOME, "
+									+ ":DAILY, :IS_CLOSED, :REMARK, :DEPOSIT, :PRINCIPLE, :TOTAL, :CONTRACT_PERIOD, :FIRST_DOWN_AMT, :REMAINING, :INSTALLMENT_AMT, :INCOME, "
 									+ ":CONTRACT_FIRST_DUE_DATE, :CONTRACT_END_DATE, :CREATE_DATE, :PAYMENT_DATE_SPECIFIC)";
 	private final String SQL_DELETE_TRANSACTION = "UPDATE TRANSACTIONS SET STATUS=0 WHERE TRANSACTION_ID = :TRANSACTION_ID";
 	private final String SQL_FIND_BY_TRANSACTION_ID = "SELECT b.name CUSTOMER_NAME,a.* FROM TRANSACTIONS a LEFT JOIN CUSTOMERS b on a.CUSTOMER_ID = b.CUSTOMER_ID WHERE a.STATUS=1 AND a.TRANSACTION_ID=? ";
@@ -53,6 +53,7 @@ public class TransactionDaoImpl implements TransactionDao {
 				.addValue("DAILY", transaction.getDaily())
 				.addValue("IS_CLOSED", false)
 				.addValue("REMARK", transaction.getRemark())
+				.addValue("DEPOSIT", transaction.getDeposit())
 				.addValue("PRINCIPLE", transaction.getPrinciple())
 				.addValue("TOTAL", transaction.getTotal())
 				.addValue("CONTRACT_PERIOD", transaction.getContractPeriod())
@@ -198,6 +199,15 @@ public class TransactionDaoImpl implements TransactionDao {
 		logger.debug("parameter : " + paramMap);
 		int result = namedParameterJdbcTemplate.update(sql, paramMap);
 		logger.info("prepaid transaction result : " + result);
+
+//		logger.info("close transaction id : " + transactionId);
+//		MapSqlParameterSource paramMapClose = new MapSqlParameterSource();
+//		paramMapClose.addValue("TRANSACTION_ID", transactionId);
+//		String sqlClose = "UPDATE TRANSACTIONS SET IS_CLOSED = TRUE WHERE TRANSACTION_ID = :TRANSACTION_ID ";
+//		logger.debug("sql : " + sql);
+//		logger.debug("parameter : " + paramMap);
+//		int resultClose = namedParameterJdbcTemplate.update(sqlClose, paramMapClose);
+//		logger.info("close transaction result : " + resultClose);
 		
 		return result;
 	}
@@ -231,6 +241,21 @@ public class TransactionDaoImpl implements TransactionDao {
 		logger.debug("parameter : " + paramMap);
 		List<Transactions> result = namedParameterJdbcTemplate.query(sql, paramMap, BeanPropertyRowMapper.newInstance(Transactions.class));
 		logger.info("Transaction result size : " + result.size());
+		return result;
+	}
+
+	@Override
+	public int deposit(int transactionId, String deposit) {
+		logger.info("deposit transaction id : " + transactionId + " ,deposit : " + deposit);
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("DEPOSIT", deposit);
+		paramMap.addValue("TRANSACTION_ID", transactionId);
+		String sql = "UPDATE TRANSACTIONS SET DEPOSIT = :DEPOSIT WHERE TRANSACTION_ID = :TRANSACTION_ID ";
+		logger.debug("sql : " + sql);
+		logger.debug("parameter : " + paramMap);
+		int result = namedParameterJdbcTemplate.update(sql, paramMap);
+		logger.info("deposit transaction result : " + result);
+
 		return result;
 	}
 
